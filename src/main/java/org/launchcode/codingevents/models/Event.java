@@ -1,8 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 /**
@@ -24,10 +22,20 @@ public class Event {
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
-    public Event(String name, String description, String contactEmail) {
+    @NotBlank(message = "Invalid Location. Try again.")
+    @NotNull(message= "Event location is required")
+    private String location;
+
+    @Positive(message="Number of attendees must be a positive number.")
+    private int numberOfAtendees;
+
+
+
+    public Event(String name, String description, String contactEmail, String location) {
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
+        this.location = location;
         this.id = nextId;
         nextId++;
     }
@@ -60,6 +68,22 @@ public class Event {
 
     public int getId() {
         return id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public int getNumberOfAtendees() {
+        return numberOfAtendees;
+    }
+
+    public void setNumberOfAtendees(int numberOfAtendees) {
+        this.numberOfAtendees = numberOfAtendees;
     }
 
     @Override
